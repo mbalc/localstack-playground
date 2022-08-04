@@ -1,0 +1,20 @@
+version: "3.7"
+services:
+  localstack:
+   build:
+     context: ./
+   container_name: mytest-localstack
+   ports:
+     - "4563-4599:4563-4599"
+   environment:
+     - SERVICES=s3
+     - DEBUG=${DEBUG- }
+     - LAMBDA_EXECUTOR=${LAMBDA_EXECUTOR- }
+     - KINESIS_ERROR_PROBABILITY=${KINESIS_ERROR_PROBABILITY- }
+     - DISABLE_CORS_CHECKS=1 # dev only
+     - DOCKER_HOST=unix:///var/run/docker.sock
+   volumes:
+     - localstack_data:/var/lib/localstack
+volumes:
+  localstack_data:
+
